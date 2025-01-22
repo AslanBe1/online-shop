@@ -22,7 +22,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'apelsin' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -49,15 +49,21 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ products.image_url }}" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">Rating: 124 </div>
-                        <h1 class="display-5 fw-bolder">Shop item template</h1>
+                        <div class="small mb-1">Quantity: {{ products.quantity }}</div>
+                        <h1 class="display-5 fw-bolder">{{ products.name }}</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
+
+                            {% if products.discount != 0%}
+                            <span class="text-decoration-line-through">{{ products.price }}</span>
+                            <span>{{ products.discounted_price}}</span>
+                            {% else %}
+                            <span>{{ products.price }}</span>
+                            {% endif %}
+
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <p class="lead">{{ products.description }}</p>
                         <div class="d-flex">
                             <form>
                                 <div class="form-group">
@@ -71,12 +77,13 @@
                                   <label for="formGroupExampleInput2">Your phone</label>
                                   <input type="text" class="form-control" placeholder="Your phone">
                                 </div>
-        
-                               
-        
+                                <div>
+                                    <label for="formGroupExampleInput2">Quantity</label>
+                                    <input type="number" name="quantity" class="form-control" placeholder="Quantity"><br>
+                                </div>
                                   <div class="form-group mb-3">
                                    
-                                    <input type="text" class="btn btn-success" value="Send">
+                                    <input type="button" class="btn btn-success" value="                 Send                  ">
                                   </div>
                               </form>
                            
@@ -255,7 +262,7 @@
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+            <div class="container"><p class="m-0 text-center text-white">By Aslan 2025</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

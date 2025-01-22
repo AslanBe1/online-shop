@@ -4,5 +4,5 @@ from shop import views
 
 urlpatterns = [
     path('', views.index, name='apelsin'),
-    path('detail.html/', views.product_detail,name='detail'),
+    path('Product_about/<int:pk>/', views.product_detail, name='product_detail'),
 ]
