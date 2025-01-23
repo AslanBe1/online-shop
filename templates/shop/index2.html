@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'zim xaqimda</title>
+    <link rel="stylesheet" href="{% static 'shop/css/stylees.css' %}"> <!-- CSS faylini ulash -->
+</head>
+<body>
+    <header>
+        <h1 class="animated-text">O'zim xaqimda 🤫</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <img src="../../media/media/products/python.png" alt="Python image">
+            <div>
+                <h3>Python 🐍👨🏻‍💻</h3>
+                <p>Hozirda men Django darsligini o'rganayapman</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../../media/media/products/english.jpg" alt="English image">
+            <div>
+                <h3>English ✍️</h3>
+                <p>I'm learning english because I must english! </p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../../media/media/products/chess.jpeg" alt="interesting image">
+            <div>
+                <h3>Mening qizishim interesting ♟</h3>
+                <p>I'm interesting chess I know play chess but my family think I can't play chess! ex peshonada boride</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <marquee behavior="scroll" direction="left">Etiboringiz Uchun Tashakkur! 😊</marquee>
+    </footer>
+</body>
+</html>
