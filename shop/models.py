@@ -1,7 +1,7 @@
-from tkinter import image_names
-
 from django.db import models
 from decimal import Decimal
+from phonenumber_field.modelfields import PhoneNumberField
+
 # Create your models here.
 
 class BaseModel(models.Model):
@@ -48,3 +48,9 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.name
+
+class Order(BaseModel):
+    full_name = models.CharField(max_length=100)
+    phone_number = PhoneNumberField(region='UZ')
+    quantity = models.PositiveIntegerField(default=1)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)

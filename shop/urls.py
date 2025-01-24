@@ -6,4 +6,6 @@ urlpatterns = [
     path('', views.index, name='apelsin'),
     path('product_about/<int:pk>/', views.product_detail, name='product_detail'),
     path('about/',views.about,name='about'),
+    path('category-choice/<int:category_id>/', views.index, name='category_detail'),
+    path('order-save-detail<int:pk>/save/', views.order_detail, name='order_detail'),
 ]
