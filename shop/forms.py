@@ -8,3 +8,12 @@ class OrderForm(forms.Form):
 
 class OrderModelForm(forms.ModelForm):
     pass
+
+
+class CommentForm(forms.Form):
+    full_name = forms.CharField()
+    email = forms.EmailField()
+    comment = forms.CharField(widget=forms.Textarea)
+
+class CommentModelForm(forms.ModelForm):
+    pass

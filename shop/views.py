@@ -1,8 +1,8 @@
 from typing import Optional
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
-from shop.models import Product, Category, Order
-from shop.forms import OrderForm
+from shop.models import Product, Category, Order, Comment
+from shop.forms import OrderForm, CommentForm
 
 
 # Create your views here.
@@ -25,6 +25,7 @@ def product_detail(request,pk):
     context = {'products': products}
     return render(request,'shop/detail.html',context)
 
+
 def order_detail(request,pk):
     products = get_object_or_404(Product, id=pk)
     if request.method == 'GET':
@@ -33,6 +34,7 @@ def order_detail(request,pk):
             full_name = request.GET.get('full_name')
             phone_number = request.GET.get('phone_number')
             quantity = int(request.GET.get('quantity'))
+
             if products.quantity >= quantity:
                 products.quantity = products.quantity - quantity
                 order = Order.objects.create(full_name=full_name,
@@ -50,6 +52,32 @@ def order_detail(request,pk):
     context = {'form': form,
                    'products': products,}
     return render(request, 'shop/detail.html', context)
+
+
+def comment_detail(request, pk):
+         products = get_object_or_404(Product, id=pk)
+         if request.method == 'GET':
+             form = CommentForm(request.GET)
+             if form.is_valid():
+                 full_name = request.GET.get('name')
+                 email = request.GET.get('email')
+                 comments = request.GET.get('comment')
+                 comment = Comment.objects.create(
+                     full_name=full_name,
+                     email=email,
+                     comment=comments,
+                     products=products
+                 )
+                 products.save()
+                 comment.save()
+                 messages.add_message(request, messages.SUCCESS, 'Your comment has been added Successfully!')
+         else:
+             form = CommentForm()
+
+         context = {'form': form,
+                            'products': products}
+         return render(request, 'shop/detail.html', context)
+
 
 def about(request):
     return render(request,'shop/index2.html')

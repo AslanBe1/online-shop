@@ -65,7 +65,7 @@
                         </div>
                         <p class="lead">{{ products.description }}</p>
                         <div class="d-flex">
-                            <form method="get" action="{% url 'order_detail' products.id %}">
+                            <form id="order" method="get" action="{% url 'order_detail' products.id %}">
                                 <div class="form-group">
                                     <h2>Place an order</h2>
                                 </div>
@@ -91,7 +91,7 @@
                                             <li style="color: greenyellow">{{ message }}</li>
                                               {% endif %}
                                     {% endfor %}
-                                  
+
                                   </div>
                               </form>
                         </div>
@@ -113,19 +113,6 @@
                           Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                         </div>
                     </div>
-
-                    <div class="media card p-4 mt-2">
-                        <div class="media-body">
-                          <h3 class="mt-0">John Doe</h3>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </div>
-
-                    <div class="media card p-4 mt-2">
-                        <div class="media-body">
-                          <h3 class="mt-0">John Doe</h3>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
                     </div>
 
                 </div>
@@ -136,30 +123,28 @@
                         <div class="text-center">
                             <h3>Add Comment</h3>
                         </div>
-                    
-                    <form>
+                    </div>
+                    <form id="comment" method="get" action="{% url 'comment_detail' products.id %}">
                         <div class="form-group mb-3">
                           <label for="formGroupExampleInput">Your name</label>
-                          <input type="text" class="form-control"  placeholder="Your name">
+                          <input type="text" class="form-control"  placeholder="Your name" name="name">
                         </div>
                         <div class="form-group mb-3">
                           <label for="formGroupExampleInput2">Your email</label>
-                          <input type="text" class="form-control" placeholder="Your email">
+                          <input type="text" class="form-control" placeholder="Your email" name="email">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="formGroupExampleInput2">Your comment</label>
-                           <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                           <textarea name="comment" class="form-control" id="" cols="30" rows="10"></textarea>
                           </div>
-
-                          <div class="form-group mb-3">
-                           
-                            <input type="text" class="btn btn-success" value="Send">
-                          </div>
+                                  <div class="form-group mb-3">
+                                    <input type="submit" class="btn btn-success" value="                 Send                  "><br><br>
+                                  </div>
                       </form>
 
                     </div>
-                      
+
                 </div>
             </div>
         </div>

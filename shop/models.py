@@ -54,3 +54,12 @@ class Order(BaseModel):
     phone_number = PhoneNumberField(region='UZ')
     quantity = models.PositiveIntegerField(default=1)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class Comment(BaseModel):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    comment = models.TextField(null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    def __str__(self):
+        return self.full_name
