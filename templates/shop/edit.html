@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="{% static 'shop/css/styles.css' %}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">
+                <a href="{% url 'product_detail' products.id %}" class="text-white hover:text-gray-200 ml-4"> OLD {{ products.name }}</a>
+            </h1>
+            <nav>
+                <a href="#" class="text-white hover:text-gray-200 ml-4">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto my-10">
+        <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Product</h2>
+            <!-- Form -->
+            <form id="editForm" action="#" method="POST" class="space-y-4" enctype="multipart/form-data">
+                {{ form.as_p }}
+                <button type="button" class="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition" onclick="showConfirmation()">Edit Product</button>
+                {% csrf_token %}
+                <div class="col-1">
+                    <a class="btn btn-outline-warning" href="{% url 'apelsin' %}"> Cancel </a>
+                </div>
+            </form>
+
+            <!-- Modal for Edit Confirmation -->
+            <div id="confirmationModal" style="display:none;">
+                <div class="modal-content">
+                    <h2>Are you sure you want to Edit?</h2>
+                    <button class="yes-btn" onclick="confirmEdit()">Yes</button>
+                    <button class="no-btn" onclick="closeModal()">No</button>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                function showConfirmation() {
+                    document.getElementById("confirmationModal").style.display = "flex";
+                }
+
+                function confirmEdit() {
+                    // Check if any field has been changed
+                    let formModified = false;
+                    const formElements = document.querySelectorAll('#editForm input, #editForm textarea, #editForm select');
+                    formElements.forEach(element => {
+                        if (element.value !== element.defaultValue) {
+                            formModified = true;
+                        }
+                    });
+
+                    if (formModified) {
+                        // If changes are made, submit the form
+                        document.getElementById("editForm").submit();
+                    } else {
+                        alert('No changes were made.');
+                        closeModal();
+                    }
+                }
+
+                function closeModal() {
+                    document.getElementById("confirmationModal").style.display = "none";
+                }
+            </script>
+
+            <style>
+                #confirmationModal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .modal-content {
+                    background-color: white;
+                    padding: 15px;
+                    border-radius: 10px;
+                    text-align: center;
+                    width: 300px;
+                    min-width: 250px;
+                }
+
+                .modal-content h2 {
+                    margin-bottom: 15px;
+                    font-size: 18px;
+                }
+
+                .yes-btn {
+                    background-color: green;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    margin: 5px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                }
+
+                .no-btn {
+                    background-color: red;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    margin: 5px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                }
+
+                .yes-btn:hover {
+                    background-color: darkgreen;
+                }
+
+                .no-btn:hover {
+                    background-color: darkred;
+                }
+            </style>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; By Aslan 2025</p>
+        </div>
+    </footer>
+</body>
+</html>

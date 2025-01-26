@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Create</title>
+      <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'shop/css/styles.css' %}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">Product Create</h1>
+            <nav>
+                <a href="#" class="text-white hover:text-gray-200 ml-4">Products</a>
+                <a href="#" class="text-white hover:text-gray-200 ml-4">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto my-10">
+        <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add New Product</h2>
+            <!-- Form -->
+            <form action="#" method="POST" class="space-y-4" enctype="multipart/form-data">
+              {{ form.as_p }}<br>
+                 <button type="submit"
+                    class="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                    Create Product
+                </button>
+                {% csrf_token %}
+                <div class="col-1">
+                    <a class="btn btn-outline-warning" href="{% url 'apelsin' %}"> Cancel </a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; By Aslan 2025</p>
+        </div>
+    </footer>
+</body>
+</html>

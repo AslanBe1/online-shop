@@ -1,8 +1,10 @@
+from itertools import product
 from typing import Optional
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from shop.models import Product, Category, Order, Comment
-from shop.forms import OrderForm, CommentForm
+from shop.forms import OrderForm, CommentForm, ProductModelForm
 
 
 # Create your views here.
@@ -81,3 +83,46 @@ def comment_detail(request, pk):
 
 def about(request):
     return render(request,'shop/index2.html')
+
+@login_required
+def create_product(request):
+    form =  ProductModelForm()
+    if request.method == 'POST':
+        form = ProductModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('apelsin')
+    else:
+        form = ProductModelForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'shop/Create.html', context)
+
+@login_required
+def delete_product(request, pk):
+    try:
+        products = get_object_or_404(Product, id=pk)
+        products.delete()
+        return redirect('apelsin')
+    except Product.DoesNotExist as e:
+        print(e)
+
+
+@login_required
+def edit_product(request, pk):
+    products = get_object_or_404(Product, id=pk)
+    form = ProductModelForm(instance=products)
+    if request.method == 'POST':
+        form = ProductModelForm(request.POST, request.FILES, instance=products)
+        if form.is_valid():
+            form.save()
+            return redirect('product_detail', pk)
+
+    context = {
+         'form': form,
+         'products': products,
+     }
+
+    return render(request, 'shop/edit.html' , context=context)
