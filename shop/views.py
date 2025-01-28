@@ -1,10 +1,9 @@
-from itertools import product
 from typing import Optional
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from shop.models import Product, Category, Order, Comment
-from shop.forms import OrderForm, CommentForm, ProductModelForm
+from shop.forms import OrderForm, CommentModelForm, ProductModelForm
 
 
 # Create your views here.
@@ -23,8 +22,12 @@ def index(request, category_id: Optional[int] = None):
 
 
 def product_detail(request,pk):
-    products = get_object_or_404(Product, id=pk)
-    context = {'products': products}
+    products = get_object_or_404(Product, pk=pk)
+    comments = Comment.objects.filter(product=products, is_negative=False)
+
+    context = {'products': products,
+               'comments': comments,}
+
     return render(request,'shop/detail.html',context)
 
 
@@ -57,28 +60,22 @@ def order_detail(request,pk):
 
 
 def comment_detail(request, pk):
-         products = get_object_or_404(Product, id=pk)
-         if request.method == 'GET':
-             form = CommentForm(request.GET)
-             if form.is_valid():
-                 full_name = request.GET.get('name')
-                 email = request.GET.get('email')
-                 comments = request.GET.get('comment')
-                 comment = Comment.objects.create(
-                     full_name=full_name,
-                     email=email,
-                     comment=comments,
-                     products=products
-                 )
-                 products.save()
-                 comment.save()
-                 messages.add_message(request, messages.SUCCESS, 'Your comment has been added Successfully!')
-         else:
-             form = CommentForm()
+    product = get_object_or_404(Product, id=pk)
+    form = CommentModelForm()
+    if request.method == 'POST':
+        form = CommentModelForm(request.POST)
 
-         context = {'form': form,
-                            'products': products}
-         return render(request, 'shop/detail.html', context)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product = product
+            comment.save()
+            return redirect('product_detail', pk)
+    context = {
+        'product': product,
+        'form': form
+    }
+    return render(request, 'shop/detail.html', context=context)
+
 
 
 def about(request):
@@ -106,6 +103,7 @@ def delete_product(request, pk):
         products = get_object_or_404(Product, id=pk)
         products.delete()
         return redirect('apelsin')
+
     except Product.DoesNotExist as e:
         print(e)
 

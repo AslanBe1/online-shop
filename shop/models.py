@@ -60,6 +60,11 @@ class Comment(BaseModel):
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
     comment = models.TextField(null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments', null=True, blank=True)
+    is_negative = models.BooleanField(default=False)
+
     def __str__(self):
         return self.full_name
+
+    class Meta:
+        ordering = ['-created_at']

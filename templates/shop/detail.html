@@ -197,19 +197,18 @@
             <div class="row">
                 <div class="col-12">
                     <div class="text-center">
-                        <h2>Latest comments</h2>
+                        <h2>Latest comments({{ products.comments.count }})</h2>
                     </div>
-
+                    {% for comment in comments %}
                     <div class="media card p-4 mt-2">
                         <div class="media-body">
-                          <h3 class="mt-0">John Doe</h3>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                          <h3 class="mt-0">{{ comment.full_name }}</h3>
+                           {{ comment.comment }}
                         </div>
                     </div>
+                    {% endfor %}
                     </div>
-
                 </div>
-
                 <div class="col-8 offset-2 mt-5">
                    
                     <div class=" p-5">
@@ -217,10 +216,11 @@
                             <h3>Add Comment</h3>
                         </div>
                     </div>
-                    <form id="comment" method="get" action="{% url 'comment_detail' products.id %}">
+                    <form id="comment" method="post" action="{% url 'comment_detail' products.id %}">
+                        {% csrf_token %}
                         <div class="form-group mb-3">
                           <label for="formGroupExampleInput">Your name</label>
-                          <input type="text" class="form-control"  placeholder="Your name" name="name">
+                          <input type="text" class="form-control"  placeholder="Your name" name="full_name">
                         </div>
                         <div class="form-group mb-3">
                           <label for="formGroupExampleInput2">Your email</label>
