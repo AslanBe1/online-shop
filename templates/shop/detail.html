@@ -12,7 +12,7 @@
             <div class="col-md-6">
                     <div>
                         {% if user.is_authenticated %}
-                            <form method="post" action="{% url 'delete_product' products.id %}" id="deleteForm">
+                            <form method="post" action="{% url 'delete_product' product.id %}" id="deleteForm">
                                                     {% csrf_token %}
                                 <div class="col-1" style="display: flex; gap: 10px;">
                                     <form method="post" action="{% url 'edit_product' products.id %}">

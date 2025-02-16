@@ -15,7 +15,7 @@
     <header class="bg-blue-600 text-white shadow-lg">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <h1 class="text-2xl font-bold">
-                <a href="{% url 'product_detail' products.id %}" class="text-white hover:text-gray-200 ml-4"> OLD {{ products.name }}</a>
+                <a href="{% url 'product_detail' product.id %}" class="text-white hover:text-gray-200 ml-4"> OLD {{ products.name }}</a>
             </h1>
             <nav>
                 <a href="#" class="text-white hover:text-gray-200 ml-4">Contact</a>
